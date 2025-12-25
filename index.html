@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Undangan Bakar-Bakaran</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #1d2671, #c33764);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px;
+      max-width: 600px;
+      animation: fadeIn 1s ease;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      animation: blink 1.5s infinite;
+    }
+
+    /* WATERMARK */
+    .watermark {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.75rem;
+      opacity: 0.4;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" onclick="nextSlide()">
+    <h1 id="text"></h1>
+    <div class="hint">👆 Klik layar untuk lanjut</div>
+  </div>
+
+  <!-- WATERMARK -->
+  <div class="watermark">pkehproject</div>
+
+  <script>
+    const slides = [
+      "Assalamualaikum teman-temanku 🤍✨",
+      "Saya ingin mengundang kalian untuk hadir di acara bakar-bakaran 🔥🍖",
+      "Acara ini diselenggarakan pada hari Rabu, tanggal 31 Desember 2025 📅",
+      "Untuk iuran / HTM hanya 20K saja ya 😄💸",
+      "Titik kumpul acara di rumah Azqia, Desa Sokawangi, sebelah timur Srijaya 📍🏡"
+    ];
+
+    let index = 0;
+    let charIndex = 0;
+    let typing = false;
+    const speed = 50;
+    const textElement = document.getElementById("text");
+
+    function typeText() {
+      if (charIndex < slides[index].length) {
+        textElement.innerHTML += slides[index].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeText, speed);
+      } else {
+        typing = false;
+      }
+    }
+
+    function nextSlide() {
+      if (typing) return;
+
+      index++;
+      if (index >= slides.length) {
+        textElement.innerHTML = "Sampai jumpa di acara yaa 🤗🔥";
+        document.querySelector(".hint").style.display = "none";
+        return;
+      }
+
+      charIndex = 0;
+      textElement.innerHTML = "";
+      typing = true;
+      typeText();
+    }
+
+    // Mulai slide pertama
+    typing = true;
+    typeText();
+  </script>
+
+</body>
+</html>
